@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
    * @return  DOCUMENT ME!
    */
   @Override public Integer save(User user) {
-    return userDao.save(user);
+    return (Integer)userDao.save(user);
   }
 
   //~ ------------------------------------------------------------------------------------------------------------------

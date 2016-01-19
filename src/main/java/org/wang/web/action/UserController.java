@@ -1,20 +1,26 @@
 package org.wang.web.action;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
+
 import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.wang.web.command.UserCommand;
 import org.wang.web.model.User;
 import org.wang.web.service.UserService;
 import org.wang.web.validator.UserValidator;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 
 /**
@@ -56,20 +62,27 @@ public class UserController {
   /**
    * DOCUMENT ME!
    *
-   * @param   id     DOCUMENT ME!
-   * @param   model  DOCUMENT ME!
+   * @param   id       Integer
+   * @param   model    DOCUMENT ME!
+   * @param   request  HttpServletRequest
    *
    * @return  DOCUMENT ME!
    *
    * @throws  Exception  DOCUMENT ME!
    */
   @RequestMapping(value = "/info")
-  protected String userInfo(Integer id, Model model, HttpServletRequest request) throws Exception {
-    String remoteUser = request.getRemoteUser();
-    User user = userService.findByUserName(remoteUser);
-    model.addAttribute("user", user);
+  protected String createUser(Integer id, Model model, HttpServletRequest request) throws Exception {
+    if (id != null) {
+      User user = userService.get(id);
+      model.addAttribute("user", user);
 
-    return "/user/info";
+      return "/user/info";
+    } else {
+      String remoteUser = request.getRemoteUser();
+      User   user       = userService.findByUserName(remoteUser);
+      model.addAttribute("user", user);
+      return "/user/info";
+    }
   }
 
   //~ ------------------------------------------------------------------------------------------------------------------
@@ -89,12 +102,9 @@ public class UserController {
   @RequestMapping(
     value  = "/add",
     method = RequestMethod.POST
-  )                                                            //������������û�ù�  ��ʲô���ã�
+  )
   protected String createUser(HttpServletRequest request, HttpServletResponse response,
-    //������Ҫ����
     @ModelAttribute("command") UserCommand command, BindingResult result) throws Exception {
-
-
     validator.validate(command, result);
 
     if (!result.hasErrors()) {
@@ -123,6 +133,7 @@ public class UserController {
   protected String listUser(Model model) {
     List<User> users = userService.list();
     model.addAttribute("users", users);
+
     return "/user/list";
   }
 } // end class UserController

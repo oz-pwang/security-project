@@ -16,7 +16,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>添加</title>
+    <title>添加Project</title>
 
     <!-- Bootstrap -->
     <link href="<c:url value="/bootstrap/css/bootstrap.min.css" />" rel="stylesheet">
@@ -30,26 +30,42 @@
 </head>
 <body>
 
-<div class="container">
-    <div class="clearfix">&nbsp;</div>
-        <form:form action="/project/add" method="post" cssClass="form-horizontal" commandName="projectCommand">
-            <%--<form:hidden path="projectName"/>--%>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">projectName</label>
+<jsp:include page="../common/navbar.jsp"/>
+
+<div class="well">
+    <h1 class="text-center">
+        <%--ne 是什么意思？--%>
+        <c:if test="${user.id ne null}">
+            编辑Project
+        </c:if>
+        <c:if test="${user.id eq null}">
+            添加Project
+        </c:if>
+    </h1>
+    <form:form action="/project/add" method="post" cssClass="form-horizontal" commandName="projectCommand">
+        <%--<form:hidden path="id"/>--%>
+
+        <spring:bind path="projectName">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="projectName" class="col-sm-2 control-label">projectName</label>
 
                 <div class="col-sm-10">
-                    <input id="projectName" name="projectName" cssClass="form-control" placeholder="projectName" type="text"/>
+                    <form:input id="projectName" path="projectName" cssClass="form-control" placeholder="projectName"
+                                required="true"/>
+                    <form:errors path="projectName" cssClass="alert-danger" element="div"/>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">Sign in</button>
-                </div>
             </div>
-        </form:form>
-    </div>
+        </spring:bind>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Create project</button>
+            </div>
+        </div>
+    </form:form>
 </div>
+
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>

@@ -28,14 +28,20 @@
           </ul>
         </li>
       </ul>
-      <c:if test="${sessionScope.LoggedInUserID ne null}">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="<c:url value="/j_spring_security_logout" />">注销</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="navbar-brand"></li>
+      </ul>
+      <c:if test="${pageContext.request.userPrincipal.name ne null}">
         <ul class="nav navbar-nav navbar-right">
           <li class="active"><a
-                  href="<c:url value="/user/info?id=${sessionScope.LoggedInUserID}" />">${sessionScope.LoggedInUserName}</a>
+                  href="<c:url value="/user/info?username=${pageContext.request.userPrincipal.name}" />">${pageContext.request.userPrincipal.name}</a>
           </li>
         </ul>
       </c:if>
-      <c:if test="${sessionScope.LoggedInUserID eq null}">
+      <c:if test="${pageContext.request.userPrincipal.name eq null}">
         <ul class="nav navbar-nav navbar-right">
           <li class="active"><a href="<c:url value="/login" />">登录</a></li>
         </ul>

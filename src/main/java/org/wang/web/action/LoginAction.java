@@ -64,8 +64,8 @@ import javax.servlet.http.HttpServletRequest;
     User user = userService.findUser(loginForm.getUsername(), loginForm.getPassword());
 
     if (user != null) {
-      request.getSession().setAttribute(Constants.USERNAME_KEY, user.getUsername());
-      request.getSession().setAttribute(Constants.USERID_KEY, user.getId());
+//      request.getSession().setAttribute(Constants.USERNAME_KEY, user.getUsername());
+//      request.getSession().setAttribute(Constants.USERID_KEY, user.getId());
 
         return "redirect:/user/info?id=" + user.getId();
     } else {

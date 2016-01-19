@@ -1,18 +1,19 @@
 package org.wang.web.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
 import org.wang.web.dao.ProjectDao;
 import org.wang.web.model.Project;
-
-import java.util.List;
 
 
 /**
  * Created by Yang Wang on 8/26/15.
  *
- * @author   $author$
- * @version  $Revision$, $Date$
+ * @author $author$
+ * @version $Revision$, $Date$
  */
 public class ProjectDaoImpl implements ProjectDao {
   //~ Instance fields --------------------------------------------------------------------------------------------------
@@ -22,9 +23,12 @@ public class ProjectDaoImpl implements ProjectDao {
   //~ Methods ----------------------------------------------------------------------------------------------------------
 
   /**
-   * @see  UserDao#delete(Integer)
+   * delete.
+   *
+   * @param id Integer
    */
-  @Override public void delete(Integer id) {
+  @Override
+  public void delete(Integer id) {
     getSession().delete(get(id));
   }
 
@@ -33,19 +37,22 @@ public class ProjectDaoImpl implements ProjectDao {
   /**
    * DOCUMENT ME!
    *
-   *
-   * @return  DOCUMENT ME!
+   * @param projectName String
+   * @return DOCUMENT ME!
    */
-  @Override public Project findProject(String projectName) {
-    return (Project) getSession().createQuery("from Project where projectName=?").setParameter(0,projectName).setMaxResults(1).uniqueResult();
+  @Override
+  public Project findProject(String projectName) {
+    return (Project) getSession().createQuery("from Project where projectName=?").setParameter(0, projectName)
+        .setMaxResults(1).uniqueResult();
   }
 
   //~ ------------------------------------------------------------------------------------------------------------------
 
   /**
-   * @see  UserDao#get(Integer)
+
    */
-  @Override public Project get(Integer id) {
+  @Override
+  public Project get(Integer id) {
     return (Project) getSession().get(Project.class, id);
   }
 
@@ -54,17 +61,23 @@ public class ProjectDaoImpl implements ProjectDao {
   /**
    * DOCUMENT ME!
    *
-   * @return  DOCUMENT ME!
+   * @return DOCUMENT ME!
    */
-  @Override public List<Project> list() {
+  @Override
+  public List<Project> list() {
     return getSession().createQuery("from Project").list();
   }
 
   //~ ------------------------------------------------------------------------------------------------------------------
 
   /**
+   * save.
+   *
+   * @param project Project
+   * @return Integer
    */
-  @Override public Integer save(Project project) {
+  @Override
+  public Integer save(Project project) {
     return (Integer) getSession().save(project);
   }
 
@@ -73,7 +86,7 @@ public class ProjectDaoImpl implements ProjectDao {
   /**
    * DOCUMENT ME!
    *
-   * @param  sessionFactory  DOCUMENT ME!
+   * @param sessionFactory DOCUMENT ME!
    */
   public void setSessionFactory(SessionFactory sessionFactory) {
     this.sessionFactory = sessionFactory;
@@ -82,8 +95,12 @@ public class ProjectDaoImpl implements ProjectDao {
   //~ ------------------------------------------------------------------------------------------------------------------
 
   /**
+   * update.
+   *
+   * @param project Project
    */
-  @Override public void update(Project project) {
+  @Override
+  public void update(Project project) {
     getSession().saveOrUpdate(project);
   }
 
@@ -94,4 +111,4 @@ public class ProjectDaoImpl implements ProjectDao {
   }
 
 
-} // end class UserDaoImpl
+} // end class ProjectDaoImpl

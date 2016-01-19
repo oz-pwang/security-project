@@ -51,8 +51,8 @@ public class ProjectController {
     public String createProject(Model model,Project project,HttpServletRequest request,
                              @ModelAttribute("projectCommand") ProjectCommand command, BindingResult result) throws Exception {
         validator.validate(command,result);
-        Integer userId = (Integer) request.getSession().getAttribute(Constants.USERID_KEY);
-        User user = userService.get(userId);
+        String remoteUser = request.getRemoteUser();
+        User user = userService.findByUserName(remoteUser);
         project.setCreator(user);
         projectService.save(project);
         return "redirect:/project/list";
@@ -64,8 +64,8 @@ public class ProjectController {
     )
     public String list(HttpServletRequest request,Model model){
         List<Project> projectList = new ArrayList<Project>();
-        Integer userId = (Integer) request.getSession().getAttribute(Constants.USERID_KEY);
-        User user = userService.get(userId);
+        String remoteUser = request.getRemoteUser();
+        User user = userService.findByUserName(remoteUser);
         for (Project project : user.getProjectSet()) {
             projectList.add(project);
         }
