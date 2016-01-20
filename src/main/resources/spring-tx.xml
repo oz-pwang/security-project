@@ -22,15 +22,11 @@
        </tx:advice>
 
        <aop:config>
-              <aop:pointcut expression="execution(* org.wang.web.dao.impl.*.*(..))" id="servicePoint"/>
-              <!--<aop:pointcut expression="execution(* org.wang.pms.dao.*.*(..))" id="servicePoint"/>-->
-              <aop:advisor advice-ref="transactionAdvice" pointcut-ref="servicePoint" />
-       </aop:config>
-
-       <aop:config>
               <aop:pointcut id="userServicePointCut"
                             expression="execution(* org.wang.web.service.*.*(..))" />
               <aop:advisor advice-ref="transactionAdvice" pointcut-ref="userServicePointCut" />
        </aop:config>
+
+
 
 </beans>

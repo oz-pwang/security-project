@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.wang.web.command.UserCommand;
+import org.wang.web.model.Project;
+import org.wang.web.model.Role;
 import org.wang.web.model.User;
+import org.wang.web.service.RoleService;
 import org.wang.web.service.UserService;
 import org.wang.web.validator.UserValidator;
 
@@ -35,6 +38,7 @@ public class UserController {
   //~ Instance fields --------------------------------------------------------------------------------------------------
 
   @Autowired private UserService userService;
+  @Autowired private RoleService roleService;
 
   private UserValidator validator = new UserValidator();
 
@@ -52,7 +56,10 @@ public class UserController {
     method = RequestMethod.GET
   )
   protected String addUser(Model model) {
+
+    List<Role> roles = roleService.list();
     model.addAttribute("command", new UserCommand());
+    model.addAttribute("roles" , roles);
 
     return "/user/add";
   }
@@ -109,8 +116,10 @@ public class UserController {
 
     if (!result.hasErrors()) {
       User    user = command.toUser();
+      String rolename = request.getParameter("rolename");
+      Role role = roleService.findRole(rolename);
+      user.setRole(role);
       Integer id   = userService.save(user);
-
       return "redirect:/user/info?id=" + id;
     } else {
       return "/user/add";

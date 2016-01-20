@@ -37,7 +37,7 @@
 
     <div class="well">
         <h1 class="text-center">
-                                   <%--ne 是什么意思？--%>
+            <%--ne 是什么意思？--%>
             <c:if test="${user.id ne null}">
                 编辑用户
             </c:if> <c:if test="${user.id eq null}">
@@ -54,7 +54,7 @@
                     <label for="username" class="col-sm-2 control-label">Username</label>
 
                     <div class="col-sm-10">
-                        <%--                                                                         //默认输入框里存在的值，当开始输入时自动清除--%>
+                            <%--                                                                         //默认输入框里存在的值，当开始输入时自动清除--%>
                         <form:input id="username" path="username" cssClass="form-control" placeholder="Username"
                                     required="true"/>
                             <%--// 3.输出验证错误信息 --%>
@@ -144,6 +144,17 @@
                     </div>
                 </div>
             </spring:bind>
+
+            <div class="form-group ">
+                <label class="col-sm-2 control-label">Role</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="rolename" name="rolename" >
+                        <c:forEach items="${roles}" var="role">
+                            <option > ${role.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label for="photo" class="col-sm-2 control-label">Choose a picture</label>

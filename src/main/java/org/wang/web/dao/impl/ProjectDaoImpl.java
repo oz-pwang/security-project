@@ -2,9 +2,7 @@ package org.wang.web.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
+import org.wang.web.dao.BaseDao;
 import org.wang.web.dao.ProjectDao;
 import org.wang.web.model.Project;
 
@@ -15,10 +13,8 @@ import org.wang.web.model.Project;
  * @author $author$
  * @version $Revision$, $Date$
  */
-public class ProjectDaoImpl implements ProjectDao {
+public class ProjectDaoImpl extends BaseDao implements ProjectDao {
   //~ Instance fields --------------------------------------------------------------------------------------------------
-
-  private SessionFactory sessionFactory;
 
   //~ Methods ----------------------------------------------------------------------------------------------------------
 
@@ -83,14 +79,6 @@ public class ProjectDaoImpl implements ProjectDao {
 
   //~ ------------------------------------------------------------------------------------------------------------------
 
-  /**
-   * DOCUMENT ME!
-   *
-   * @param sessionFactory DOCUMENT ME!
-   */
-  public void setSessionFactory(SessionFactory sessionFactory) {
-    this.sessionFactory = sessionFactory;
-  }
 
   //~ ------------------------------------------------------------------------------------------------------------------
 
@@ -106,9 +94,6 @@ public class ProjectDaoImpl implements ProjectDao {
 
   //~ ------------------------------------------------------------------------------------------------------------------
 
-  private Session getSession() {
-    return sessionFactory.getCurrentSession();
-  }
 
 
 } // end class ProjectDaoImpl

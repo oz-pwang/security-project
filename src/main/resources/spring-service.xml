@@ -3,6 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+       <!-- service 层-->
        <bean id="userService" class="org.wang.web.service.impl.UserServiceImpl">
               <property name="userDao" ref="userDao" />
        </bean>
@@ -10,13 +11,18 @@
        <bean id="projectService" class="org.wang.web.service.impl.ProjectServiceImpl">
               <property name="projectDao" ref="projectDao" />
        </bean>
-       
-       <bean id="validator" class="org.wang.web.validator.ProjectValidator">
-              <property name="projectService" ref="projectService"/>
+
+       <bean id="roleService" class="org.wang.web.service.impl.RoleServiceImpl">
+              <property name="roleDao" ref="roleDao"/>
        </bean>
 
        <bean id="userLoginService" class="org.wang.web.service.UserLoginService">
               <property name="userDao" ref="userDao" />
+       </bean>
+
+       <!-- validator 层 -->
+       <bean id="validator" class="org.wang.web.validator.ProjectValidator">
+              <property name="projectService" ref="projectService"/>
        </bean>
 
 </beans>

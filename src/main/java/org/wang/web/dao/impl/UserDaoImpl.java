@@ -2,9 +2,7 @@ package org.wang.web.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
+import org.wang.web.dao.BaseDao;
 import org.wang.web.dao.UserDao;
 import org.wang.web.model.User;
 
@@ -15,13 +13,8 @@ import org.wang.web.model.User;
  * @author   $author$
  * @version  $Revision$, $Date$
  */
-public class UserDaoImpl implements UserDao {
-  //~ Instance fields --------------------------------------------------------------------------------------------------
-
-  private SessionFactory sessionFactory;
-
+public class UserDaoImpl extends BaseDao implements UserDao {
   //~ Methods ----------------------------------------------------------------------------------------------------------
-
 
   /**
    * @see  org.wang.web.dao.UserDao#delete(java.lang.Integer)
@@ -94,30 +87,12 @@ public class UserDaoImpl implements UserDao {
 
   //~ ------------------------------------------------------------------------------------------------------------------
 
-  /**
-   * DOCUMENT ME!
-   *
-   * @param  sessionFactory  DOCUMENT ME!
-   */
-  public void setSessionFactory(SessionFactory sessionFactory) {
-    this.sessionFactory = sessionFactory;
-  }
-
-  //~ ------------------------------------------------------------------------------------------------------------------
 
   /**
-   *
-   * update.
-   *
-   * @param  user  User
+   * @see  org.wang.web.dao.UserDao#update(org.wang.web.model.User)
    */
   @Override public void update(User user) {
     getSession().saveOrUpdate(user);
   }
 
-  //~ ------------------------------------------------------------------------------------------------------------------
-
-  private Session getSession() {
-    return sessionFactory.getCurrentSession();
-  }
 } // end class UserDaoImpl

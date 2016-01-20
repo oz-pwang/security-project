@@ -1,5 +1,11 @@
 package org.wang.web.model;
 
+import java.io.Serializable;
+
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,13 +14,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 
 /**
@@ -63,25 +67,22 @@ import java.util.Set;
   )
   @Lob private byte[] photo;
 
+  @OneToMany(
+    cascade  = CascadeType.ALL,
+    mappedBy = "creator"
+  )
+  private Set<Project> projectSet = new LinkedHashSet<Project>();
+
+
+  @JoinColumn(name = "roleId")
+  @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
+  private Role role;
+
   @Column(
     nullable = false,
     length   = 30
   )
   private String username;
-
-  public Set<Project> getProjectSet() {
-    return projectSet;
-  }
-
-  public void setProjectSet(Set<Project> projectSet) {
-    this.projectSet = projectSet;
-  }
-
-  @OneToMany(
-          cascade = CascadeType.ALL,
-          mappedBy = "creator"
-  )
-  private Set<Project> projectSet = new LinkedHashSet<Project>();
 
   //~ Methods ----------------------------------------------------------------------------------------------------------
 
@@ -180,6 +181,29 @@ import java.util.Set;
    */
   public byte[] getPhoto() {
     return photo;
+  }
+
+  //~ ------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * getter method for project set.
+   *
+   * @return  Set
+   */
+  public Set<Project> getProjectSet() {
+    return projectSet;
+  }
+
+  //~ ------------------------------------------------------------------------------------------------------------------
+
+
+  /**
+   * getter method for role.
+   *
+   * @return  Role
+   */
+  public Role getRole() {
+    return role;
   }
 
   //~ ------------------------------------------------------------------------------------------------------------------
@@ -290,6 +314,28 @@ import java.util.Set;
    */
   public void setPhoto(byte[] photo) {
     this.photo = photo;
+  }
+
+  //~ ------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * setter method for project set.
+   *
+   * @param  projectSet  Set
+   */
+  public void setProjectSet(Set<Project> projectSet) {
+    this.projectSet = projectSet;
+  }
+
+  //~ ------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * setter method for role.
+   *
+   * @param  role  Role
+   */
+  public void setRole(Role role) {
+    this.role = role;
   }
 
   //~ ------------------------------------------------------------------------------------------------------------------
