@@ -1,6 +1,7 @@
 package org.wang.web.command;
 
 import org.springframework.util.StringUtils;
+import org.wang.web.model.Role;
 import org.wang.web.model.User;
 
 import java.io.IOException;
@@ -32,6 +33,9 @@ public class UserCommand {
 // private MultipartFile photo;
   private String  username;
 
+  private Integer  RoleId;
+  private String  rolename;
+
   //~ Constructors -----------------------------------------------------------------------------------------------------
 
   /**
@@ -49,12 +53,17 @@ public class UserCommand {
     this.username    = user.getUsername();
     this.password    = user.getPassword();
     this.gender      = user.getGender();
-    this.age         = user.getId();
+    this.age         = user.getAge();
     this.email       = user.getEmail();
     this.phoneNumber = user.getPhoneNumber();
 
+
     if (user.getBirthDate() != null) {
       this.birthDateString = sdf.format(user.getBirthDate());
+    }
+    if (user.getRole() != null) {
+      this.RoleId = user.getRole().getId();
+      this.rolename = user.getRole().getName();
     }
   }
 
@@ -236,6 +245,25 @@ public class UserCommand {
 
   //~ ------------------------------------------------------------------------------------------------------------------
 
+
+
+  public String getRolename() {
+    return rolename;
+  }
+
+  public void setRolename(String rolename) {
+    this.rolename = rolename;
+  }
+
+
+  public Integer getRoleId() {
+    return RoleId;
+  }
+
+  public void setRoleId(Integer roleId) {
+    RoleId = roleId;
+  }
+
   /**
    * DOCUMENT ME!
    *
@@ -260,6 +288,11 @@ public class UserCommand {
       } catch (Exception e) {
         e.printStackTrace();
       }
+    }
+    if (this.getRoleId() != null) {
+      Role role = new Role();
+      role.setId(this.getRoleId());
+      user.setRole(role);
     }
 
     return user;

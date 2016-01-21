@@ -37,12 +37,13 @@
 
     <div class="well">
         <h1 class="text-center">
-            <%--ne 是什么意思？--%>
-            <c:if test="${user.id ne null}">
+
+            <c:if test="${command.id ne null}">
                 编辑用户
-            </c:if> <c:if test="${user.id eq null}">
-            添加用户
-        </c:if>
+            </c:if>
+            <c:if test="${command.id eq null}">
+                添加用户
+            </c:if>
         </h1>
         <form:form action="/user/add" method="post" cssClass="form-horizontal" commandName="command">
             <form:hidden path="id"/>
@@ -145,17 +146,29 @@
                 </div>
             </spring:bind>
 
-            <div class="form-group ">
-                <label class="col-sm-2 control-label">Role</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="rolename" name="rolename" >
-                        <c:forEach items="${roles}" var="role">
-                            <option > ${role.name}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-            </div>
+                <div class="form-group ">
+                    <label class="col-sm-2 control-label">Role</label>
 
+                    <div class="col-sm-10">
+
+                        <c:if test="${command.id ne null}">
+                            <fieldset disabled>
+                                <select class="form-control" name="rolename">
+                                    <option> ${command.rolename}</option>
+                                </select>
+                            </fieldset>
+                        </c:if>
+
+                        <c:if test="${command.id eq null}">
+                            <select class="form-control" name="rolename">
+                                <c:forEach items="${roles}" var="role">
+                                    <option> ${role.name}</option>
+                                </c:forEach>
+                            </select>
+                        </c:if>
+
+                    </div>
+                </div>
             <div class="form-group">
                 <label for="photo" class="col-sm-2 control-label">Choose a picture</label>
 

@@ -40,6 +40,9 @@ import javax.persistence.Transient;
 
   @Transient private String birthDateString;
 
+
+  @Transient private String rolename;
+
   @Column private String email;
 
   @Column(
@@ -348,4 +351,13 @@ import javax.persistence.Transient;
   public void setUsername(String username) {
     this.username = username;
   }
+
+  public String getRolename() {
+    return rolename;
+  }
+
+  public void setRolename(String rolename) {
+    this.rolename = rolename;
+  }
+
 } // end class User

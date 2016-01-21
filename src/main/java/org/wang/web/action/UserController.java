@@ -64,6 +64,24 @@ public class UserController {
     return "/user/add";
   }
 
+  @RequestMapping(
+    value  = "/update",
+    method = RequestMethod.GET
+  )
+  protected String updateUser(HttpServletRequest request,Model model) {
+    String username = request.getParameter("username");
+//    Integer id = Integer.valueOf(request.getParameter("id"));
+
+    User user = userService.findByUserName(username);
+
+    UserCommand command = new UserCommand(user);
+
+    model.addAttribute("command",command);
+    return "/user/add";
+  }
+
+
+
   //~ ------------------------------------------------------------------------------------------------------------------
 
   /**

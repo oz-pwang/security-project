@@ -63,8 +63,15 @@
                 <td>Phone Number</td>
                 <td>${user.phoneNumber}</td>
             </tr>
+            <tr>
+                <td>Role</td>
+                <td>${user.role.name}</td>
+            </tr>
+
+
             </tbody>
         </table>
+        <a class="btn btn-primary btn-lg" href="/user/update?username=${user.username}" role="button">Update User</a>
     </div>
 </div>
 

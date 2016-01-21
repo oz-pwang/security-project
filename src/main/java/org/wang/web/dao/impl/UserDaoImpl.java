@@ -82,7 +82,8 @@ public class UserDaoImpl extends BaseDao implements UserDao {
    * @return  Integer
    */
   @Override public Integer save(User user) {
-    return (Integer) getSession().save(user);
+    getSession().saveOrUpdate(user);
+    return findUser(user.getUsername(),user.getPassword()).getId();
   }
 
   //~ ------------------------------------------------------------------------------------------------------------------
